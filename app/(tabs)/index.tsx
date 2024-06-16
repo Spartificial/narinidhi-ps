@@ -4,6 +4,7 @@ import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import homescreenImg from '../../assets/images/homescreenImg.png';
 import { texts } from '../texts';
+import { Link } from 'expo-router';
 
 const dimensions = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -83,9 +84,9 @@ export default function TabOneScreen() {
         <View>
           <Text style={styles.title}>{texts['welcome'][Language]}</Text>
           <Text style={{fontSize: 20}}>{texts['intro'][Language]}</Text>
-          <Text style={styles.button}>{texts['calculator_button'][Language]}</Text>
-          <Text style={styles.button}>{texts['govsch_button'][Language]}</Text>
-          <Text style={styles.button}>{texts['chatbot_button'][Language]}</Text>
+          <Link href="/two" style={styles.button}>{texts['calculator_button'][Language]}</Link>
+          <Link href="/two" style={styles.button}>{texts['govsch_button'][Language]}</Link>
+          <Link href="/chatbot" style={styles.button}>{texts['chatbot_button'][Language]}</Link>
           <Text style={styles.button} onPress={() => saveLanguage(other_lang)}>{texts['change_language_button'][Language]}</Text>
         </View>;
   }
