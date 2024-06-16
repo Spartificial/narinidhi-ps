@@ -6,7 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { texts } from '../texts';
-import homescreenImg from '../../assets/images/chatbot_img.png';
+import chatbot_img from '../../assets/images/chatbot_img.png';
 
 
 export default function ChatScreen(navigation) {
@@ -74,7 +74,7 @@ export default function ChatScreen(navigation) {
   if (GiftedMessages.length == 0)
     {
     suggestionSection = <View style={styles.suggestionContainer}>
-    <Image source={homescreenImg} style={{
+    <Image source={chatbot_img} style={{
         width: 40,
         resizeMode: 'contain'}}/>
     <Text style={styles.suggestionText} onPress={() => sendSuggestion(texts['suggestionText1'][Language]) }>{texts['suggestionText1'][Language]}</Text>
@@ -96,7 +96,7 @@ export default function ChatScreen(navigation) {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   suggestionContainer:{
     justifyContent: 'flex-end',
     height: '90%',

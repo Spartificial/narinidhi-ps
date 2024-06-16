@@ -38,5 +38,33 @@ export const texts = {
     'suggestionText2':{
         'english': 'How to calculate compound interest?',
         'hindi': "How to calculate compound interest in hindi?",
-    }
+    },
+    'calc_suggestionTitle':{
+        'english': 'Example Queries',
+        'hindi': "Example Queries",
+    },
+    'calc_suggestionText1':{
+        'english': 'Calculator example query 1.',
+        'hindi': "Calculator example query 1 in hindi.",
+    },
+    'calc_suggestionText2':{
+        'english': 'Calculator example query 2.',
+        'hindi': "Calculator example query 2 in hindi.",
+    },
+    'calc_suggestionText3':{
+        'english': 'Calculator example query 3.',
+        'hindi': "Calculator example query 3 in hindi.",
+    },
+    'calculator_placeholder':{
+        'english': 'Calculate something',
+        'hindi': 'Calculate something',
+    },
+    'calculator_system_prompt':{
+        'english': 'You are a helpfull financial calculator.',
+        'hindi': "You are a helpfull financial calculator to a person who doesn't know english. Your conversations will be in Hindi only.",
+    },
+    'calculator_please_wait':{
+        'english': 'Please wait.',
+        'hindi': "Please wait.",
+    },
 }
