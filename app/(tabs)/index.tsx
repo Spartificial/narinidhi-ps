@@ -31,12 +31,13 @@ const styles = StyleSheet.create({
       textAlign: 'center'
     },
     button:{
-      borderWidth: 1,
-      borderRadius: 3,
-      borderColor: '#000',
+      borderWidth: 0.5,
+      borderRadius: 10,
       marginTop: 10,
       paddingVertical: 5,
       textAlign: 'center',
+      borderColor: '#7300e6',
+      color: '#7300e6',
     }
   });
 

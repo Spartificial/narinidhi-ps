@@ -154,11 +154,12 @@ const styles = StyleSheet.create({
   },
   suggestionText:{
       borderRadius: 50,
-      backgroundColor: '#F4F4F4',
-      color: '#3E3E3E',
+      color: '#7300e6',
       paddingVertical: 10,
       textAlign: 'center',
       width: '80%',
       marginTop: 5,
+      borderWidth: 0.5,
+      borderColor: '#7300e6'
   }
 });
