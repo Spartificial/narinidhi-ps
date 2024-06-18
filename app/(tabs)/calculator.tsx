@@ -8,10 +8,11 @@ import go_img from '../../assets/images/go_icon.png';
 import { texts } from '../texts';
 import axios from 'axios';
 
-export default function TabTwoScreen(navigation) {
+export default function Calculator(navigation) {
   const [Language, setLanguage] = useState('english');
   const [Input, setInput] = useState('');
   const [Output, setOutput] = useState('');
+
   useFocusEffect(
     React.useCallback(() => {
     const getStoredData = async () => {
@@ -44,10 +45,10 @@ export default function TabTwoScreen(navigation) {
           },
         }
       )
-      setOutput(output);
+      setOutput(JSON.parse(output['request']['_response'])['choices'][0]['message']['content']);
     } catch (error) {
-      setOutput(texts['chat_error_msg'][Language]);
-      // console.error('Error sending message to ChatGPT:', error);
+      setOutput(texts['calculator_error_msg'][Language]);
+      console.log(error);
     }
   };
   
@@ -83,13 +84,14 @@ export default function TabTwoScreen(navigation) {
 
   return (
     <View style={styles.mainContainer}>
+      <Text style={styles.primaryTitle}>{texts['calc_title'][Language]}</Text>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder={texts['calculator_placeholder'][Language]}
           onChangeText={handleChangeText}
           value={Input}
-          />
+        />
         <TouchableOpacity onPress={sendPrompt}>
           <Image style={styles.go_button} source={go_img}/>
         </TouchableOpacity>
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'contain',
+    marginLeft: 10,
   },
   mainContainer: {
     width: '100%',
@@ -118,11 +121,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     paddingHorizontal: 10,
     height: 40,
-    marginTop: 40,
+    marginTop: 20,
     alignItems: 'center',
   },
   input:{
-    flexGrow: 1,
+    flex: 1,
   },
   suggestionContainer:{
     width: '80%',
@@ -130,9 +133,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 0.5,
     alignItems: 'center',
-    backgroundColor: '#F4F4F4',
-    color: '#3E3E3E',
+    backgroundColor: '#F5F5F5',
     paddingVertical: 20,
+  },
+  primaryTitle:{
+    fontSize: 25,
+    marginTop: 50,
+    textAlign: 'center',
+    width: '100%'
   },
   suggestionTitle:{
     fontSize: 20

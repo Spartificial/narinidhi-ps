@@ -27,6 +27,10 @@ export const texts = {
         'english': 'Error encountered, please try again.',
         'hindi': "Error encountered, please try again.",
     },
+    'calc_title':{
+        'english': 'Calculate Financials',
+        'hindi': "Calculate Financials",
+    },
     'chatbot_system_prompt':{
         'english': 'You are a helpfull financial assistant.',
         'hindi': "You are a helpfull financial assistant to a person who doesn't know english. Your conversations will be in Hindi only.",
@@ -67,4 +71,24 @@ export const texts = {
         'english': 'Please wait.',
         'hindi': "Please wait.",
     },
+    'chatbot_please_wait':{
+        'english': 'Please wait.',
+        'hindi': "Please wait.",
+    },
+    'calculator_error_msg':{
+        'english': 'Error encountered, please try again.',
+        'hindi': "Error encountered, please try again.",
+    },
+    'scheme_serp_query':{
+        'english': 'news article on financial schemes by the indian government for under-developed villages and people under the poverty line.',
+        'hindi': 'news article on financial schemes by the indian government for under-developed villages and people under the poverty line in hindi.',
+    },
+    'schemes_overview_error_msg':{
+        'english': 'Error encountered, please try again.',
+        'hindi': "Error encountered, please try again.",
+    },
+    'schemes_overview_title':{
+        'english': 'Government Schemes',
+        'hindi': "Government Schemes hindi",
+    }
 }

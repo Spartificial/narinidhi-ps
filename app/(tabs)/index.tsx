@@ -85,7 +85,7 @@ export default function TabOneScreen() {
           <Text style={styles.title}>{texts['welcome'][Language]}</Text>
           <Text style={{fontSize: 20}}>{texts['intro'][Language]}</Text>
           <Link href="/calculator" style={styles.button}>{texts['calculator_button'][Language]}</Link>
-          <Link href="/calculator" style={styles.button}>{texts['govsch_button'][Language]}</Link>
+          <Link href="/scheme_overview" style={styles.button}>{texts['govsch_button'][Language]}</Link>
           <Link href="/chatbot" style={styles.button}>{texts['chatbot_button'][Language]}</Link>
           <Text style={styles.button} onPress={() => saveLanguage(other_lang)}>{texts['change_language_button'][Language]}</Text>
         </View>;

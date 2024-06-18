@@ -1,5 +1,6 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { AntDesign } from '@expo/vector-icons';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
@@ -8,12 +9,16 @@ import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
+function FAI(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+}) {return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;}
+
+function AntIcon(props: {
+  name: React.ComponentProps<typeof AntDesign>['name'];
+  color: string;
+}) {return <AntDesign size={28} style={{ marginBottom: -3 }} {...props} />;}
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -30,7 +35,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <FAI name='home' color={color} />,
 
         }}
       />
@@ -38,14 +43,21 @@ export default function TabLayout() {
         name="calculator"
         options={{
           title: 'Calculator',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <AntIcon name="calculator" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="scheme_overview"
+        options={{
+          title: 'Govt. Schemes',
+          tabBarIcon: ({ color }) => <FAI name="newspaper-o" color={color} />,
         }}
       />
       <Tabs.Screen
         name="chatbot"
         options={{
           title: 'Chat Bot',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <AntIcon name="question" color={color} />,
         }}
       />
     </Tabs>

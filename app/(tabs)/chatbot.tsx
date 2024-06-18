@@ -4,15 +4,24 @@ import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Chat, MessageType, defaultTheme } from '@flyerhq/react-native-chat-ui'
 import { texts } from '../texts';
 import chatbot_img from '../../assets/images/chatbot_img.png';
 
+const uuidv4 = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.floor(Math.random() * 16)
+    const v = c === 'x' ? r : (r % 4) + 8
+    return v.toString(16)
+  })
+}
 
 export default function ChatScreen(navigation) {
   const [Language, setLanguage] = useState('english');
   const [Messages, setMessages] = useState([{ role: 'system', content: texts['chatbot_system_prompt'][Language] }]);
-  const [GiftedMessages, setGiftedMessages] = useState([]);
+  const [ChatMessages, setChatMessages] = useState<MessageType.Any[]>([])
+  const user = { id: '0' }
+  const assistant = { id: '1' }
 
   useFocusEffect(
     React.useCallback(() => {
@@ -36,8 +45,15 @@ export default function ChatScreen(navigation) {
   }, [Messages]);
 
   const addMessages = (output) => {
+    var outputMessage: MessageType.Text = {
+      author: assistant,
+      id: uuidv4(),
+      text: output,
+      type: 'text',
+    }
+    setChatMessages([outputMessage, ...ChatMessages.slice(1)]);
     setMessages([...Messages, {"content": output, "role": "assistant"}]);
-    setGiftedMessages(GiftedChat.append(GiftedMessages, {_id: GiftedMessages.length+1,text: output, user: {_id: 2}}));
+    
   }
 
   const sendMessage = async () => {
@@ -50,28 +66,53 @@ export default function ChatScreen(navigation) {
         {
           headers: {
             Authorization: 'Bearer '+ process.env.EXPO_PUBLIC_OPENAI_API_KEY,
+            'Content-Type': 'application/json',
           },
         }
       )
-      addMessages(output['choices'][0]['message']);
+      addMessages(JSON.parse(output['request']['_response'])['choices'][0]['message']['content']);
     } catch (error) {
       addMessages(texts['chat_error_msg'][Language]);
-      // console.error('Error sending message to ChatGPT:', error);
+      console.log(error);
     }
   };
 
   const onSend = (newMessage) => {
-    setMessages([...Messages, {'role': 'user', 'content': newMessage[0]['text']}]);
-    setGiftedMessages(GiftedChat.append(GiftedMessages, {_id: GiftedMessages.length+1,text: newMessage[0]['text'], user: {_id: 1}}));
+    var textMessage: MessageType.Text = {
+      author: user,
+      id: uuidv4(),
+      text: newMessage.text,
+      type: 'text',
+    }
+    var waitMessage: MessageType.Text = {
+      author: assistant,
+      id: uuidv4(),
+      text: texts['chatbot_please_wait'][Language],
+      type: 'text',
+    }
+    setMessages([...Messages, {'role': 'user', 'content': newMessage.text}]);
+    setChatMessages([waitMessage, textMessage, ...ChatMessages]);
   }
 
   const sendSuggestion = (prompt) =>{
+    var textMessage: MessageType.Text = {
+      author: user,
+      id: uuidv4(),
+      text: prompt,
+      type: 'text',
+    }
+    var waitMessage: MessageType.Text = {
+      author: assistant,
+      id: uuidv4(),
+      text: texts['chatbot_please_wait'][Language],
+      type: 'text',
+    }
     setMessages([...Messages, {'role': 'user', 'content': prompt}]);
-    setGiftedMessages(GiftedChat.append(GiftedMessages, {_id: GiftedMessages.length+1,text: prompt, user: {_id: 1}}));
+    setChatMessages([waitMessage, textMessage, ...ChatMessages]);
   }
 
   var suggestionSection = null
-  if (GiftedMessages.length == 0)
+  if (ChatMessages.length == 0)
     {
     suggestionSection = <View style={styles.suggestionContainer}>
     <Image source={chatbot_img} style={{
@@ -85,12 +126,16 @@ export default function ChatScreen(navigation) {
   return(
     <View style={styles.mainContainer}>
       {suggestionSection}
-      <GiftedChat
-        messages={GiftedMessages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
+      <Chat
+        theme={{
+          ...defaultTheme,
+          colors: { ...defaultTheme.colors, inputBackground: '#EEE', inputText: 'black'},
+          borders: { ...defaultTheme.borders, inputBorderRadius: 0},
+          fonts: { ...defaultTheme.fonts, emptyChatPlaceholderTextStyle: {color: 'white'}}
         }}
+        messages={ChatMessages}
+        onSendPress={messages => onSend(messages)}
+        user={user}
       />
     </View>
   );
@@ -99,10 +144,9 @@ export default function ChatScreen(navigation) {
 const styles = StyleSheet.create({
   suggestionContainer:{
     justifyContent: 'flex-end',
-    height: '90%',
+    height: '85%',
     alignItems: 'center',
   },
-
   mainContainer: {
     width: '100%',
     flex: 1,
