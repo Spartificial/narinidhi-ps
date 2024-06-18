@@ -48,7 +48,7 @@ export default function Calculator(navigation) {
       setOutput(JSON.parse(output['request']['_response'])['choices'][0]['message']['content']);
     } catch (error) {
       setOutput(texts['calculator_error_msg'][Language]);
-      console.log(error);
+      console.error(error);
     }
   };
   
@@ -92,29 +92,36 @@ export default function Calculator(navigation) {
           onChangeText={handleChangeText}
           value={Input}
         />
-        <TouchableOpacity onPress={sendPrompt}>
-          <Image style={styles.go_button} source={go_img}/>
-        </TouchableOpacity>
       </View>
       {suggestionSection}
       {outputSection}
+      <Text style={styles.go_button} onPress={sendPrompt}>Calculate</Text>
     </View>
   );
 }
 const styles = StyleSheet.create({
   go_button:{
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-    marginLeft: 10,
+    width: '80%',
+    backgroundColor: '#7300e6',
+    color: '#FFFFFF',
+    marginHorizontal: 'auto',
+    borderRadius: 10,
+    padding:10,
+    borderWidth: 0.5,
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: 20,
+    left: '10%'
   },
   mainContainer: {
     width: '100%',
     flex: 1,
     backgroundColor: '#fff',
+    color: '#7300e6',
   },
   inputContainer:{
     borderWidth: 0.5,
+    borderColor: '#7300e6',
     display: 'flex',    
     flexDirection: 'row',
     width: '80%',
@@ -123,9 +130,11 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 20,
     alignItems: 'center',
+    borderRadius: 10,
   },
   input:{
     flex: 1,
+    color: '#7300e6'
   },
   suggestionContainer:{
     width: '80%',
@@ -135,6 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5F5F5',
     paddingVertical: 20,
+    borderRadius: 10,
   },
   primaryTitle:{
     fontSize: 25,

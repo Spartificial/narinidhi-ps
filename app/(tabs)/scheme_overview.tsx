@@ -1,5 +1,5 @@
-import { StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, Image, Dimensions, ScrollView, RefreshControl } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
@@ -13,6 +13,7 @@ export default function SchemeOverview(navigation) {
   const [Language, setLanguage] = useState('english');
   const [Articles, setArticles] = useState([]);
   const [Error, setError] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   var content = null;
 
   useFocusEffect(
@@ -34,15 +35,16 @@ export default function SchemeOverview(navigation) {
     try {
       var output = await axios.get('https://serpapi.com/search.json?q='+texts["scheme_serp_query"][Language]+'&tbm=nws&api_key='+process.env.EXPO_PUBLIC_SERPAI_API_KEY)
       setArticles(JSON.parse(output['request']['_response'])['news_results']);
-      
     } catch (error) {
       setError(true);
       console.error(error);
     }
   };
-  if(Articles.length == 0){
-    getSchemes();
-  }
+  useEffect(() => {
+    if(Articles.length == 0){
+      getSchemes();
+    }
+  }, [Language]);
 
   if (Error==true) {
     content = 
@@ -68,16 +70,21 @@ export default function SchemeOverview(navigation) {
     </View>
   }
   
+  const onRefresh = () => {
+    getSchemes();
+  };
+  
   return (
-    <ScrollView style={styles.mainContainer}>
-        {content}
-    </ScrollView>
+    <RefreshControl style={styles.mainContainer} refreshing={refreshing} onRefresh={onRefresh}>
+      <ScrollView>
+          {content}
+      </ScrollView>
+    </RefreshControl>
   );
 }
 const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
-    flex: 1,
     backgroundColor: '#fff',
   },
   Container:{

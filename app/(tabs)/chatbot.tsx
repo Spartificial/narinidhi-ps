@@ -73,7 +73,7 @@ export default function ChatScreen(navigation) {
       addMessages(JSON.parse(output['request']['_response'])['choices'][0]['message']['content']);
     } catch (error) {
       addMessages(texts['chat_error_msg'][Language]);
-      console.log(error);
+      console.error(error);
     }
   };
 

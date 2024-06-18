@@ -80,8 +80,8 @@ export const texts = {
         'hindi': "Error encountered, please try again.",
     },
     'scheme_serp_query':{
-        'english': 'news article on financial schemes by the indian government for under-developed villages and people under the poverty line.',
-        'hindi': 'news article on financial schemes by the indian government for under-developed villages and people under the poverty line in hindi.',
+        'english': 'english test cricket.',
+        'hindi': 'भारत ग्रामीण वित्त योजना महिलाओं गरीबी',
     },
     'schemes_overview_error_msg':{
         'english': 'Error encountered, please try again.',

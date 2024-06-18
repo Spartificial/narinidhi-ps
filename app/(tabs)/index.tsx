@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     title: {
-      marginTop: 20,
-      marginBottom: 20,
+      marginTop: 10,
       fontSize: 30,
       fontWeight: 'bold',
       textAlign: 'center',
