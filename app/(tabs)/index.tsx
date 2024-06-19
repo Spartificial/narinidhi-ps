@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       textAlign: 'center',
     },
+    subtitle: {
+      marginTop: 0,
+      marginBottom: 10,
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
     separator: {
       marginTop: 10,
       marginBottom: 20,
@@ -83,6 +90,7 @@ export default function TabOneScreen() {
       var Section = 
         <View>
           <Text style={styles.title}>{texts['welcome'][Language]}</Text>
+          <Text style={styles.subtitle}>{texts['welcome-subtitle'][Language]}</Text>
           <Text style={{fontSize: 20}}>{texts['intro'][Language]}</Text>
           <Link href="/calculator" style={styles.button}>{texts['calculator_button'][Language]}</Link>
           <Link href="/scheme_overview" style={styles.button}>{texts['govsch_button'][Language]}</Link>
