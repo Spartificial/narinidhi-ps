@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -84,17 +84,21 @@ export default function Calculator(navigation) {
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.primaryTitle}>{texts['calc_title'][Language]}</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder={texts['calculator_placeholder'][Language]}
-          onChangeText={handleChangeText}
-          value={Input}
-        />
-      </View>
-      {suggestionSection}
-      {outputSection}
+      <ScrollView>
+        <Text style={styles.primaryTitle}>{texts['calc_title'][Language]}</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder={texts['calculator_placeholder'][Language]}
+            onChangeText={handleChangeText}
+            value={Input}
+          />
+        </View>
+        {suggestionSection}
+        {outputSection}
+        <View style={{marginBottom: 100,}}>
+        </View>
+      </ScrollView>
       <Text style={styles.go_button} onPress={sendPrompt}>Calculate</Text>
     </View>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, Image  } from 'react-native';
+import { StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -88,15 +88,17 @@ export default function TabOneScreen() {
   if (Display == true){
       var other_lang = Language=='hindi' ? 'english' : 'hindi';
       var Section = 
-        <View>
-          <Text style={styles.title}>{texts['welcome'][Language]}</Text>
-          <Text style={styles.subtitle}>{texts['welcome-subtitle'][Language]}</Text>
-          <Text style={{fontSize: 20}}>{texts['intro'][Language]}</Text>
-          <Link href="/calculator" style={styles.button}>{texts['calculator_button'][Language]}</Link>
-          <Link href="/scheme_overview" style={styles.button}>{texts['govsch_button'][Language]}</Link>
-          <Link href="/chatbot" style={styles.button}>{texts['chatbot_button'][Language]}</Link>
-          <Text style={styles.button} onPress={() => saveLanguage(other_lang)}>{texts['change_language_button'][Language]}</Text>
-        </View>;
+        <ScrollView style={{width: '100%'}}>
+          <View style={{width: '90%', marginHorizontal: 'auto', marginVertical: 20}}>
+            <Text style={styles.title}>{texts['welcome'][Language]}</Text>
+            <Text style={styles.subtitle}>{texts['welcome-subtitle'][Language]}</Text>
+            <Text style={{fontSize: 20, textAlign: 'center'}}>{texts['intro'][Language]}</Text>
+            <Link href="/calculator" style={styles.button}>{texts['calculator_button'][Language]}</Link>
+            <Link href="/scheme_overview" style={styles.button}>{texts['govsch_button'][Language]}</Link>
+            <Link href="/chatbot" style={styles.button}>{texts['chatbot_button'][Language]}</Link>
+            <Text style={styles.button} onPress={() => saveLanguage(other_lang)}>{texts['change_language_button'][Language]}</Text>
+          </View>
+        </ScrollView>;
   }
   else{
     var Section = 
