@@ -94,5 +94,21 @@ export const texts = {
     'schemes_overview_title':{
         'english': 'Government Schemes',
         'hindi': "सरकारी योजनाएँ",
+    },
+    'index_header':{
+        'english': 'Home',
+        'hindi': 'hindi Home',
+    },
+    'calculator_header':{
+        'english': 'Calculator',
+        'hindi': 'hindi Calculator',
+    },
+    'chatbot_header':{
+        'english': 'Ask Anything',
+        'hindi': 'hindi Ask Anything',
+    },
+    'scheme_overview_header':{
+        'english': 'Govt. Schemes',
+        'hindi': 'hindi Govt. Schemes',
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { AntDesign } from '@expo/vector-icons';
 import { Link, Tabs } from 'expo-router';
@@ -7,6 +7,8 @@ import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { texts } from '../texts';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function FAI(props: {
@@ -22,6 +24,8 @@ function AntIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const [Language, setLanguage] = useState('english');
+  AsyncStorage.getItem('language').then((language) => {setLanguage(language);});
 
   return (
     <Tabs
@@ -34,7 +38,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: texts['index_header'][Language],
           tabBarIcon: ({ color }) => <FAI name='home' color={color} />,
 
         }}
@@ -42,21 +46,21 @@ export default function TabLayout() {
       <Tabs.Screen
         name="calculator"
         options={{
-          title: 'Calculator',
+          title: texts['calculator_header'][Language],
           tabBarIcon: ({ color }) => <AntIcon name="calculator" color={color} />,
         }}
       />
       <Tabs.Screen
         name="scheme_overview"
         options={{
-          title: 'Govt. Schemes',
+          title: texts['scheme_overview_header'][Language],
           tabBarIcon: ({ color }) => <FAI name="newspaper-o" color={color} />,
         }}
       />
       <Tabs.Screen
         name="chatbot"
         options={{
-          title: 'Chat Bot',
+          title: texts['chatbot_header'][Language],
           tabBarIcon: ({ color }) => <AntIcon name="question" color={color} />,
         }}
       />

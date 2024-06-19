@@ -4,7 +4,7 @@ import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
-import { Chat, MessageType, defaultTheme } from '@flyerhq/react-native-chat-ui'
+import { Chat, MessageType, defaultTheme } from '@flyerhq/react-native-chat-ui';
 import { texts } from '../texts';
 import chatbot_img from '../../assets/images/chatbot_img.png';
 
